@@ -11,69 +11,6 @@
        <goods-list :goods="goods[currentType].list"></goods-list>
     </scroll>
      <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>     <!--组件监听点击需要加.native -->
-    
-<ul>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-  <li>占位符</li>
-</ul>
 </div>
   
 </template>
@@ -134,7 +71,9 @@ export default {
       this.$refs.scroll.refresh()
     },
     deactivated(){
+      //保存y值
       this.saveY = this.$refs.scroll.scroll.y;
+
       // console.log(this.saveY)
     },
     created(){
@@ -144,10 +83,11 @@ export default {
        this.getHomeGoods('pop');
        this.getHomeGoods('new');
        this.getHomeGoods('sell');
+       
     },
     mounted(){
       //3.监听item中图片加载完成 解决bug
-       const refresh =debounce(this.$refs.scroll.refresh,50)
+       const refresh = debounce(this.$refs.scroll.refresh,50)
       this.$bus.$on('itemImageLoad',() => {
         // this.$refs.scroll.scroll.refresh()
         refresh();
@@ -194,6 +134,7 @@ export default {
       //网络请求相关
       getHomeMultidata(){
          getHomeMultidata().then(res => {
+                   console.log(res)
         this.banners = res.data.banner.list
         this.recommends = res.data.recommend.list
       })
@@ -205,6 +146,7 @@ export default {
         this.goods[type].page += 1;
 
         this.$refs.scroll.finishPullUp();//多次上拉加载刷新
+        
       })
       }
 }

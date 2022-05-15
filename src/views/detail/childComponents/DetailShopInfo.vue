@@ -44,8 +44,6 @@ export default {
       }
     }
   },
-
-
   filters: {
     sellCountFilter(value){
       if (value < 10000) return value;
