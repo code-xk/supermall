@@ -11,7 +11,8 @@
        <goods-list :goods="recommends" ref="recommend"></goods-list>
    </scroll>
    <detail-bottom-bar @addCart="addtocart"></detail-bottom-bar>
-   <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>  
+   <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
+   <!-- <toast :message="message" :show="show"></toast> -->
    
    <!-- <h2>{{goods.title}}</h2> -->
   </div>
@@ -28,6 +29,7 @@ import DetailCommentInfo from "./childComponents/DetailCommentInfo.vue"
 import GoodsList from "../../components/content/goods/GoodsList.vue"
 import DetailBottomBar from "./childComponents/DetailBottomBar"
 import BackTop from "../../components/content/backTop/BackTop.vue"
+// import Toast from "../../components/common/toast/Toast.vue"
 
 import {debounce} from "../../common/utils"
 
@@ -49,7 +51,8 @@ export default {
         GoodsList,
         DetailBottomBar,
         BackTop,
-        Scroll
+        Scroll,
+        // Toast
     },
     data(){
         return{
@@ -64,7 +67,9 @@ export default {
             themeY:[],
             getThemeY:null,
             currentIndex:0,
-            isShowBackTop:false
+            isShowBackTop:false,
+            // message:'',
+            // show:false
         }
     },
     created(){
@@ -164,6 +169,16 @@ export default {
             // this.$store.commit('addCart',product) //mutations调用
             this.$store.dispatch('addCart',product).then(res => {
                 console.log(res)
+
+                // this.show = true;
+                // this.message = res;
+                // setTimeout(() => {
+                //     this.show = false;
+                //     this.message = '';
+                // },1000)
+
+                this.$toast.show(res,1000)
+                console.log(this.$toast)
             })
 
         }

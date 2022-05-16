@@ -9,7 +9,7 @@
           合计:{{totalPrice}}
       </div>
 
-      <div class="calculate">
+      <div class="calculate" @click="calcClick">
           去计算({{checkLength}})
       </div>
       
@@ -32,6 +32,13 @@ export default {
             } else{
                 this.$store.state.cartList.forEach(n => n.checked = true)
             }
+        },
+        calcClick(){
+            if(((this.$store.state.cartList.filter( n => n.checked).length) === 0)){   //判断全部未勾选
+                this.$toast.show('请选择购买商品',1000)
+            }else{
+                this.$toast.show('正在支付',1000)
+            }
         }
     },
     computed:{
@@ -50,7 +57,10 @@ export default {
             if(this.$store.state.cartList.length){
             return !(this.$store.state.cartList.filter( n => !n.checked).length) //正数取反为false,0取反为true
             }
-        }
+        },
+        // isNoSelectAll(){
+        //     return ((this.$store.state.cartList.filter( n => n.checked).length) === 0)
+        // }
     }
 }
 </script>
